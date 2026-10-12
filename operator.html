@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Operator - Antrian RS</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="./dist/storage.js" defer></script>
+    <script src="./dist/dom.js" defer></script>
+    <script src="./dist/session.js" defer></script>
+    <script src="./dist/operator.js" defer></script>
+  </head>
+
+  <body hidden data-guard="auth">
+    <header class="navbar">
+      <div class="navbar-inner">
+        <span class="navbar-brand">Antrian RS</span>
+        <div class="navbar-right">
+          <a class="navbar-link" href="./layar.html">Layar</a>
+          <span id="navbar-user" class="navbar-user"></span>
+          <button type="button" id="logout-button" class="logout-button">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="page-head">
+        <h1>Panel Operator</h1>
+        <p>Memanggil antrian sesuai urutan prioritas.</p>
+      </div>
+
+      <div class="card">
+        <div class="field" style="max-width: 320px">
+          <label for="filter-jenis">Layanan yang dilayani</label>
+          <select id="filter-jenis"></select>
+        </div>
+      </div>
+
+      <div class="grid-2" style="margin-top: 18px">
+        <div class="card">
+          <h2>Sedang Dipanggil</h2>
+          <div class="now-serving">
+            <div class="label">Nomor</div>
+            <div id="current-number" class="number">-</div>
+            <div id="current-meta" class="meta">Belum ada yang dipanggil</div>
+          </div>
+
+          <div class="btn-row" style="margin-top: 16px">
+            <button type="button" id="btn-next" class="btn">Panggil Berikutnya</button>
+            <button type="button" id="btn-skip" class="btn btn-ghost">Lewati</button>
+            <button type="button" id="btn-done" class="btn btn-ghost">Selesai</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Antrian Berikutnya</h2>
+          <ul id="queue-list" class="queue-list"></ul>
+          <p id="queue-empty" class="empty" hidden>Tidak ada antrian menunggu.</p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

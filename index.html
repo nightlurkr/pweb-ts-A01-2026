@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Admin - Antrian RS</title>
+    <link rel="stylesheet" href="./css/style.css" />
+
+    <!-- Urutan WAJIB: storage lalu session, baru admin.
+         session.js yang membuka <body hidden data-guard="staff"> setelah role terbukti admin/moderator. -->
+    <script src="./dist/storage.js" defer></script>
+    <script src="./dist/dom.js" defer></script>
+    <script src="./dist/session.js" defer></script>
+    <script src="./dist/admin.js" defer></script>
+  </head>
+
+  <body hidden>
+    <header class="navbar">
+      <div class="navbar-inner">
+        <span class="navbar-brand">Antrian RS</span>
+        <div class="navbar-right">
+          <a class="navbar-link" href="./operator.html">Operator</a>
+          <a class="navbar-link" href="./layar.html">Layar</a>
+          <span id="navbar-user" class="navbar-user"></span>
+          <button type="button" id="logout-button" class="logout-button">Logout</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="page-head">
+        <h1>Dashboard Admin</h1>
+        <p>Kelola jenis antrian dan terbitkan tiket manual.</p>
+      </div>
+
+      <!-- ====================================================
+           MULAI DARI SINI KE BAWAH: BAGIAN GEORGE (Orang B)
+           Kerangka dan id di bawah boleh diubah sesuai kebutuhan.
+           Yang tidak boleh diubah: navbar di atas, urutan <script>,
+           dan atribut hidden pada <body>.
+           ==================================================== -->
+
+      <div class="grid-2">
+        <div class="card">
+          <h2>Tambah Jenis Antrian</h2>
+          <!-- TODO George: form kode (1 huruf kapital) + nama layanan.
+               Pakai Store.validateNewType(kode, nama) untuk cek duplikat. -->
+        </div>
+
+        <div class="card">
+          <h2>Terbitkan Tiket Manual</h2>
+          <!-- TODO George: pilih jenis + prioritas, lalu Store.createTicket(kode, prioritas) -->
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Daftar Jenis Antrian</h2>
+        <!-- TODO George: tabel jenis antrian + tombol Aktifkan/Nonaktifkan dan Hapus -->
+      </div>
+
+      <div class="card">
+        <h2>Reset Antrian</h2>
+        <!-- TODO George: tombol yang memanggil Store.resetQueue() -->
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ambil Antrian - Antrian RS</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="./dist/storage.js" defer></script>
+    <script src="./dist/dom.js" defer></script>
+    <script src="./dist/ambil.js" defer></script>
+  </head>
+
+  <body class="kiosk-body">
+    <main class="kiosk-card">
+      <h1>Ambil Nomor Antrian</h1>
+      <p>Pilih layanan yang dituju, lalu tekan tombol di bawah.</p>
+
+      <div id="message" class="alert" role="alert" hidden></div>
+
+      <form id="kiosk-form" class="kiosk-form">
+        <div class="field">
+          <label for="jenis">Jenis Layanan</label>
+          <select id="jenis" required></select>
+        </div>
+
+        <div class="field">
+          <label for="prioritas">Tingkat Prioritas</label>
+          <select id="prioritas" required>
+            <option value="normal">Normal</option>
+            <option value="lansia">Lansia</option>
+            <option value="disabilitas">Disabilitas</option>
+            <option value="vip">VIP</option>
+          </select>
+        </div>
+
+        <button type="submit" id="ambil-button" class="btn">Ambil Nomor</button>
+      </form>
+
+      <section id="ticket-result" class="ticket-result" hidden>
+        <div class="label">Nomor Antrian Anda</div>
+        <div id="ticket-number" class="number"></div>
+        <div id="ticket-meta" class="meta"></div>
+      </section>
+
+      <footer class="login-footer">
+        <a href="./layar.html">Lihat layar antrian</a> ·
+        <a href="./login.html">Login petugas</a>
+      </footer>
+    </main>
+  </body>
+</html>

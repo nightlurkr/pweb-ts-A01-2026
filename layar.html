@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Layar Antrian - Antrian RS</title>
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="./dist/storage.js" defer></script>
+    <script src="./dist/dom.js" defer></script>
+    <script src="./dist/layar.js" defer></script>
+  </head>
+
+  <body class="screen-body">
+    <header class="screen-head">
+      <h1>Antrian Rumah Sakit</h1>
+      <div class="btn-row">
+        <span id="clock" class="clock"></span>
+        <button type="button" id="sound-button" class="screen-btn">Suara: Mati</button>
+        <button type="button" id="fullscreen-button" class="screen-btn">Layar Penuh</button>
+      </div>
+    </header>
+
+    <main class="screen-main">
+      <div id="screen-grid" class="screen-grid"></div>
+      <p id="screen-empty" class="empty" hidden>Belum ada jenis antrian aktif.</p>
+    </main>
+  </body>
+</html>
