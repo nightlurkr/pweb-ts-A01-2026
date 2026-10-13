@@ -12,6 +12,29 @@
     <script src="./dist/dom.js" defer></script>
     <script src="./dist/session.js" defer></script>
     <script src="./dist/admin.js" defer></script>
+    <style>
+      .adm-table-wrap { overflow-x: auto; }
+      .adm-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+      .adm-table th {
+        text-align: left;
+        padding: 9px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        border-bottom: 1px solid var(--border);
+      }
+      .adm-table td { padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+      .adm-table tr:last-child td { border-bottom: none; }
+      .adm-code { font-weight: 700; font-size: 16px; color: var(--brand); }
+      .adm-btn { padding: 6px 12px; font-size: 13px; }
+      .badge-on { color: var(--ok); background-color: var(--ok-bg); }
+      .adm-hint { font-size: 12.5px; color: var(--text-muted); }
+      #type-kode { text-transform: uppercase; }
+      .card .ticket-result { margin-top: 16px; padding: 16px; }
+      .card .ticket-result .number { font-size: 40px; }
+    </style>
   </head>
 
   <body hidden>
@@ -40,27 +63,80 @@
            dan atribut hidden pada <body>.
            ==================================================== -->
 
+      <div id="admin-message" class="alert" role="alert" hidden></div>
+
       <div class="grid-2">
         <div class="card">
           <h2>Tambah Jenis Antrian</h2>
-          <!-- TODO George: form kode (1 huruf kapital) + nama layanan.
-               Pakai Store.validateNewType(kode, nama) untuk cek duplikat. -->
+          <form id="type-form" class="kiosk-form" novalidate>
+            <div class="field">
+              <label for="type-kode">Kode (1 huruf kapital)</label>
+              <input type="text" id="type-kode" maxlength="1" placeholder="C"
+                     autocomplete="off" required />
+            </div>
+            <div class="field">
+              <label for="type-nama">Nama Layanan</label>
+              <input type="text" id="type-nama" placeholder="Poli Gigi" autocomplete="off" required />
+              <span class="adm-hint">Kode dan nama tidak boleh sama dengan yang sudah ada (huruf besar/kecil dianggap sama).</span>
+            </div>
+            <button type="submit" class="btn">Tambah Jenis</button>
+          </form>
         </div>
 
         <div class="card">
           <h2>Terbitkan Tiket Manual</h2>
-          <!-- TODO George: pilih jenis + prioritas, lalu Store.createTicket(kode, prioritas) -->
+          <form id="ticket-form" class="kiosk-form" novalidate>
+            <div class="field">
+              <label for="ticket-jenis">Jenis Antrian</label>
+              <select id="ticket-jenis" required></select>
+            </div>
+            <div class="field">
+              <label for="ticket-prioritas">Tingkat Prioritas</label>
+              <select id="ticket-prioritas" required>
+                <option value="normal">Normal</option>
+                <option value="lansia">Lansia</option>
+                <option value="disabilitas">Disabilitas</option>
+                <option value="vip">VIP</option>
+              </select>
+            </div>
+            <button type="submit" id="ticket-submit" class="btn">Terbitkan Tiket</button>
+          </form>
+          <p id="ticket-empty" class="empty" hidden>Belum ada jenis antrian aktif. Tambahkan atau aktifkan satu jenis dulu.</p>
+
+          <section id="ticket-result" class="ticket-result" hidden>
+            <div class="label">Tiket Diterbitkan</div>
+            <div id="ticket-number" class="number"></div>
+            <div id="ticket-meta" class="meta"></div>
+          </section>
         </div>
       </div>
 
       <div class="card">
         <h2>Daftar Jenis Antrian</h2>
-        <!-- TODO George: tabel jenis antrian + tombol Aktifkan/Nonaktifkan dan Hapus -->
+        <div class="adm-table-wrap">
+          <table class="adm-table" id="type-table" hidden>
+            <thead>
+              <tr>
+                <th>Kode</th>
+                <th>Nama Layanan</th>
+                <th>Status</th>
+                <th>Menunggu</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="type-body"></tbody>
+          </table>
+        </div>
+        <p id="type-empty" class="empty">Belum ada jenis antrian.</p>
       </div>
 
       <div class="card">
         <h2>Reset Antrian</h2>
-        <!-- TODO George: tombol yang memanggil Store.resetQueue() -->
+        <p class="adm-hint" style="margin: 0 0 14px">
+          Mengosongkan seluruh antrian aktif dan mengembalikan nomor tiket ke 001.
+          Jenis antrian tidak ikut terhapus.
+        </p>
+        <button type="button" id="reset-button" class="btn btn-danger">Reset Antrian</button>
       </div>
     </main>
   </body>
