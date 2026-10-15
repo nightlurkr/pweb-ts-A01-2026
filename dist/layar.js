@@ -20,13 +20,33 @@
     }
     /* Web Speech API bawaan browser. Tidak ada library, sesuai syarat native.
        Ini fitur tambahan untuk nilai bonus (respon suara panggilan antrian). */
+    /* Menyetel utterance.lang saja tidak cukup: itu cuma permintaan, dan browser
+       tetap memakai suara default kalau tidak disuruh. Jadi suara berbahasa
+       Indonesia dicari sendiri dari daftar yang tersedia di sistem.
+       getVoices() sering masih kosong saat halaman baru dibuka, karena itu
+       daftarnya diambil ulang saat event voiceschanged menyala. */
+    let idVoice = null;
+    function pickIndonesianVoice() {
+        if (!("speechSynthesis" in window))
+            return;
+        const voices = window.speechSynthesis.getVoices();
+        idVoice = voices.find((v) => v.lang.toLowerCase().startsWith("id")) ?? null;
+    }
+    /** "A-001" dibaca "A nol nol satu", bukan "A minus satu". */
+    function spokenForm(label) {
+        const parts = label.split("-");
+        const kode = parts[0] ?? label;
+        const nomor = (parts[1] ?? "").split("").join(" ");
+        return nomor === "" ? kode : `${kode} ${nomor}`;
+    }
     function announce(label, serviceName) {
         if (!soundOn || !("speechSynthesis" in window))
             return;
-        const spoken = label.split("").join(" "); // "A-001" dibaca per karakter
-        const utterance = new SpeechSynthesisUtterance(`Nomor antrian ${spoken}, silakan menuju ${serviceName}`);
+        const utterance = new SpeechSynthesisUtterance(`Nomor antrian ${spokenForm(label)}, silakan menuju ${serviceName}`);
         utterance.lang = "id-ID";
         utterance.rate = 0.9;
+        if (idVoice !== null)
+            utterance.voice = idVoice;
         window.speechSynthesis.speak(utterance);
     }
     function cardMarkup(type, called, remaining) {
@@ -79,6 +99,10 @@
         fullscreenButton.textContent =
             document.fullscreenElement === null ? "Layar Penuh" : "Keluar Layar Penuh";
     });
+    pickIndonesianVoice();
+    if ("speechSynthesis" in window) {
+        window.speechSynthesis.addEventListener("voiceschanged", pickIndonesianVoice);
+    }
     render();
     window.setInterval(renderClock, 1000);
     Store.onChange(render, POLL_MS);

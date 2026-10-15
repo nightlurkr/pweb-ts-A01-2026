@@ -54,7 +54,9 @@
         }
         try {
             const ticket = Store.createTicket(code, priority);
-            const antreanDepan = Store.waiting(code).length - 1;
+            // Posisi sebenarnya di antrean, bukan jumlah total: tiket prioritas tinggi
+            // menyalip yang sudah menunggu, jadi dihitung dari urutan panggil.
+            const antreanDepan = Store.waiting(code).findIndex((t) => t.id === ticket.id);
             ticketNumber.textContent = ticket.label;
             ticketMeta.innerHTML =
                 `${DOM.escape(Store.findType(code)?.name ?? code)} &middot; ` +

@@ -6,38 +6,13 @@
     <title>Dashboard Admin - Antrian RS</title>
     <link rel="stylesheet" href="./css/style.css" />
 
-    <!-- Urutan WAJIB: storage lalu session, baru admin.
-         session.js yang membuka <body hidden data-guard="staff"> setelah role terbukti admin/moderator. -->
     <script src="./dist/storage.js" defer></script>
     <script src="./dist/dom.js" defer></script>
     <script src="./dist/session.js" defer></script>
     <script src="./dist/admin.js" defer></script>
-    <style>
-      .adm-table-wrap { overflow-x: auto; }
-      .adm-table { width: 100%; border-collapse: collapse; font-size: 14px; }
-      .adm-table th {
-        text-align: left;
-        padding: 9px 12px;
-        font-size: 12px;
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        border-bottom: 1px solid var(--border);
-      }
-      .adm-table td { padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
-      .adm-table tr:last-child td { border-bottom: none; }
-      .adm-code { font-weight: 700; font-size: 16px; color: var(--brand); }
-      .adm-btn { padding: 6px 12px; font-size: 13px; }
-      .badge-on { color: var(--ok); background-color: var(--ok-bg); }
-      .adm-hint { font-size: 12.5px; color: var(--text-muted); }
-      #type-kode { text-transform: uppercase; }
-      .card .ticket-result { margin-top: 16px; padding: 16px; }
-      .card .ticket-result .number { font-size: 40px; }
-    </style>
   </head>
 
-  <body hidden>
+  <body hidden data-guard="staff">
     <header class="navbar">
       <div class="navbar-inner">
         <span class="navbar-brand">Antrian RS</span>
@@ -55,13 +30,6 @@
         <h1>Dashboard Admin</h1>
         <p>Kelola jenis antrian dan terbitkan tiket manual.</p>
       </div>
-
-      <!-- ====================================================
-           MULAI DARI SINI KE BAWAH: BAGIAN GEORGE (Orang B)
-           Kerangka dan id di bawah boleh diubah sesuai kebutuhan.
-           Yang tidak boleh diubah: navbar di atas, urutan <script>,
-           dan atribut hidden pada <body>.
-           ==================================================== -->
 
       <div id="admin-message" class="alert" role="alert" hidden></div>
 

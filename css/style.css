@@ -390,3 +390,28 @@ h1, h2, h3 { margin: 0; }
 .ticket-result .label { font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted); }
 .ticket-result .number { font-size: 52px; font-weight: 700; line-height: 1.1; color: var(--brand); font-variant-numeric: tabular-nums; }
 .ticket-result .meta { font-size: 13.5px; color: var(--text-muted); }
+
+/* ============================================================
+   DASHBOARD ADMIN
+   ============================================================ */
+.adm-table-wrap { overflow-x: auto; }
+.adm-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.adm-table th {
+  text-align: left;
+  padding: 9px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+.adm-table td { padding: 11px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+.adm-table tr:last-child td { border-bottom: none; }
+.adm-code { font-weight: 700; font-size: 16px; color: var(--brand); }
+.adm-btn { padding: 6px 12px; font-size: 13px; }
+.badge-on { color: var(--ok); background-color: var(--ok-bg); }
+.adm-hint { font-size: 12.5px; color: var(--text-muted); }
+#type-kode { text-transform: uppercase; }
+.card .ticket-result { margin-top: 16px; padding: 16px; }
+.card .ticket-result .number { font-size: 40px; }
