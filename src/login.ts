@@ -111,8 +111,10 @@
         username: data["username"],
       });
 
-      // Admin dan moderator ke dashboard; user biasa ke panel operator.
-      location.replace(Store.isStaff(role) ? "index.html" : "operator.html");
+      /* Admin dan moderator ke dashboard, user biasa ke halaman ambil antrian.
+         Sesuai revisi soal 13 Oktober 2026: semua user harus login untuk
+         mengambil antrian, jadi pengunjung mendarat langsung di sana. */
+      location.replace(Store.isStaff(role) ? "index.html" : "ambil-antrian.html");
     } catch (error) {
       showError("Tidak bisa menghubungi server. Periksa koneksi internet Anda.");
       console.error("Login gagal:", error);

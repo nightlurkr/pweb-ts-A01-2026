@@ -1,6 +1,8 @@
 /* ambil.ts - halaman publik untuk mengambil nomor antrian sendiri. */
 
 (() => {
+  if (CURRENT_USER === null) return; // guard di session.ts sudah mengalihkan halaman
+
   const form = DOM.byId<HTMLFormElement>("kiosk-form");
   const jenisSelect = DOM.byId<HTMLSelectElement>("jenis");
   const prioritasSelect = DOM.byId<HTMLSelectElement>("prioritas");

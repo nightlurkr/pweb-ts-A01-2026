@@ -45,7 +45,7 @@ Pola password: username ditambah `pass`.
 |---|---|---|---|
 | admin | `emilys` | `emilyspass` | `index.html` |
 | moderator | `oliviaw` | `oliviawpass` | `index.html` |
-| user | `averyp` | `averyppass` | `operator.html` |
+| user | `averyp` | `averyppass` | `ambil-antrian.html` |
 
 ---
 
@@ -54,10 +54,10 @@ Pola password: username ditambah `pass`.
 ```
 .
 ├── login.html            Halaman login
-├── index.html            Dashboard admin
-├── operator.html         Panel operator
-├── layar.html            Layar antrian publik
-├── ambil-antrian.html    Kiosk ambil nomor
+├── index.html            Dashboard admin, admin dan moderator
+├── operator.html         Panel operator, perlu login
+├── layar.html            Layar antrian, satu-satunya halaman publik
+├── ambil-antrian.html    Ambil nomor antrian, perlu login
 ├── tsconfig.json
 ├── css/style.css         Seluruh style, satu file
 ├── src/
@@ -210,7 +210,7 @@ Empat kondisi ditangani terpisah:
 `src/login.ts` baris 115:
 
 ```ts
-location.replace(Store.isStaff(role) ? "index.html" : "operator.html");
+location.replace(Store.isStaff(role) ? "index.html" : "ambil-antrian.html");
 ```
 
 `Store.isStaff()` di `src/storage.ts` baris 118 menyamakan `admin` dan `moderator`,
@@ -221,8 +221,11 @@ browser, sehingga tombol Back tidak bisa membawa pengguna kembali setelah logout
 
 ### Akses Publik
 
-`layar.html` dan `ambil-antrian.html` tidak memuat `dist/session.js` sama sekali,
-sehingga tidak ada guard yang berjalan di sana.
+Hanya `layar.html` yang bersifat publik dan tidak memuat `dist/session.js`.
+
+Mengikuti revisi soal yang diumumkan asisten pada 13 Oktober 2026, bahwa semua user
+harus login untuk mengambil antrian, `ambil-antrian.html` kini memakai auth guard
+dengan mode `auth` seperti `operator.html`.
 
 ---
 
@@ -257,6 +260,7 @@ Tingkat proteksi dibedakan lewat atribut `data-guard` pada tag `<body>`:
 |---|---|---|
 | `index.html` | 15 | `staff`, hanya admin dan moderator |
 | `operator.html` | 14 | `auth`, siapa pun yang sudah login |
+| `ambil-antrian.html` | 14 | `auth`, siapa pun yang sudah login |
 
 Kedua halaman memakai `<body hidden>`, dan baru dibuka di baris 32 `session.ts` setelah
 sesinya terbukti sah. Tanpa itu, isi halaman sempat berkedip sebelum redirect selesai.
@@ -409,8 +413,12 @@ sehingga tetap benar walau pengguna keluar dengan tombol Escape.
 
 ### Layanan Self-Service
 
-Halaman publik tanpa login. Pengunjung memilih jenis layanan dan tingkat prioritas,
-lalu tiket langsung masuk antrean tanpa persetujuan admin.
+Pengunjung login lebih dulu, lalu memilih jenis layanan dan tingkat prioritas. Tiket
+langsung masuk antrean tanpa persetujuan admin.
+
+Halaman ini semula publik. Status itu berubah mengikuti revisi soal 13 Oktober 2026,
+yang menyatakan semua user harus login untuk mengambil antrian. Role `user` karena itu
+diarahkan ke halaman ini setelah login, bukan ke panel operator.
 
 Nilai dropdown bertipe `string`, jadi disempitkan dulu ke `Priority` dengan type guard
 di `ambil.ts` baris 43 sebelum dikirim ke `Store.createTicket()`.

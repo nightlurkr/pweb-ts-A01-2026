@@ -1,6 +1,8 @@
 "use strict";
 /* ambil.ts - halaman publik untuk mengambil nomor antrian sendiri. */
 (() => {
+    if (CURRENT_USER === null)
+        return; // guard di session.ts sudah mengalihkan halaman
     const form = DOM.byId("kiosk-form");
     const jenisSelect = DOM.byId("jenis");
     const prioritasSelect = DOM.byId("prioritas");

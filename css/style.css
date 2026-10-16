@@ -354,8 +354,8 @@ h1, h2, h3 { margin: 0; }
 /* ============================================================
    AMBIL ANTRIAN
    ============================================================ */
-.kiosk-body {
-  min-height: 100vh;
+.kiosk-main {
+  min-height: calc(100vh - 62px);
   display: flex;
   align-items: center;
   justify-content: center;
